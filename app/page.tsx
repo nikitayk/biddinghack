@@ -1,5 +1,15 @@
 "use client"
 
+import ConfettiBackground from "../components/ui/ConfettiBackground";
+import HelpGuideModal from "../components/ui/HelpGuideModal";
+import ControlPanel from "../components/ui/ControlPanel";
+import CampaignKPIs from "../components/ui/CampaignKPIs";
+import CampaignPerformance from "../components/ui/CampaignPerformance";
+import BudgetUsage from "../components/ui/BudgetUsage";
+import BidOutcomes from "../components/ui/BidOutcomes";
+import BidConsole from "../components/ui/BidConsole";
+
+
 import type React from "react"
 import { useState, useEffect, useRef } from "react"
 import {
@@ -12,6 +22,9 @@ import {
   MonitorStopIcon as StopIcon,
   XIcon,
 } from "lucide-react"
+
+
+
 
 // Client-side only confetti component
 const ConfettiBackground = () => {
