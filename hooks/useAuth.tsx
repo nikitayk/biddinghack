@@ -1,6 +1,12 @@
-// hooks/useAuth.ts
+// hooks/useAuth.tsx
+"use client";
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
+
+// ...rest of your code
+
+
+
 
 // --- Types ---
 interface User {
