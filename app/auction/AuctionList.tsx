@@ -1,14 +1,28 @@
-// components/AuctionList.tsx
+"use client";
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+
+// TypeScript interfaces
+export interface Bid {
+  userId: string;
+  amount: number;
+  timestamp: string; // ISO date string
+}
 
 export interface Auction {
   id: string;
   title: string;
   description: string;
   currentBid: number;
-  endTime: string; // ISO string
+  endTime: string; // ISO date string
+  bids?: Bid[];
+}
+
+interface AuctionsApiResponse {
+  success: boolean;
+  auctions: Auction[];
+  error?: string;
 }
 
 const AuctionList: React.FC = () => {
@@ -24,7 +38,7 @@ const AuctionList: React.FC = () => {
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL || ""}/api/auctions`
         );
-        const data = await response.json();
+        const data: AuctionsApiResponse = await response.json();
         if (response.ok && data.success && Array.isArray(data.auctions)) {
           setAuctions(data.auctions);
         } else {
@@ -73,10 +87,10 @@ const AuctionList: React.FC = () => {
                   Current Bid: ${auction.currentBid}
                 </div>
                 <Link
-                  href={`/auctions/${auction.id}`}
+                  href={`/auction/${auction.id}`}
                   className="inline-block mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
                 >
-                  View & Bid
+                  View &amp; Bid
                 </Link>
               </div>
             </div>
