@@ -1,19 +1,8 @@
-
-/*app/register/page.tsx*/
-
 "use client";
-
-
-
-
-
-
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import UserRegistrationForm from "../../components/UserRegistrationForm";
-
-
 
 const RegisterPage: React.FC = () => {
   const router = useRouter();
@@ -22,30 +11,50 @@ const RegisterPage: React.FC = () => {
   // Handler to be called after successful registration
   const handleRegistrationSuccess = () => {
     setSuccess(true);
-    // Redirect to login after a short delay
     setTimeout(() => {
       router.push("/login");
     }, 1500);
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50">
-      <div className="w-full max-w-md p-6 bg-white rounded shadow">
-        <h1 className="text-3xl font-bold text-center mb-6">Sign Up</h1>
+    <main className="min-h-screen flex flex-col items-center justify-center bg-[#0a0a23] font-mono">
+      <div className="w-full max-w-md p-8 bg-[#181830] border-2 border-[#00fff7] rounded-xl shadow-xl cyberpunk-panel">
+        <h1 className="text-3xl md:text-4xl font-extrabold text-center mb-8 text-[#ff00ff] tracking-widest cyberpunk-glow">
+          SIGN UP
+        </h1>
         <UserRegistrationForm onSuccess={handleRegistrationSuccess} />
         {success && (
-          <div className="mt-4 text-green-600 text-center">
+          <div className="mt-6 text-[#00ff99] text-center cyberpunk-glow">
             Registration successful! Redirecting to login...
           </div>
         )}
-        <div className="mt-4 text-center text-sm">
+        <div className="mt-6 text-center text-sm text-[#b3b3ff]">
           Already have an account?{" "}
-          <a href="/login" className="text-blue-600 hover:underline">
+          <a
+            href="/login"
+            className="text-[#fffb00] hover:underline font-bold cyberpunk-glow"
+          >
             Login here
           </a>
         </div>
       </div>
-    </div>
+      <style jsx global>{`
+        .cyberpunk-glow {
+          text-shadow:
+            0 0 8px #ff00ff,
+            0 0 16px #00fff7,
+            0 0 32px #ff00ff;
+        }
+        .cyberpunk-panel {
+          box-shadow:
+            0 0 20px #00fff7,
+            0 0 40px #ff00ff inset;
+        }
+        body {
+          font-family: 'Roboto Mono', 'VT323', monospace;
+        }
+      `}</style>
+    </main>
   );
 };
 

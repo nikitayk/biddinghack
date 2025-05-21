@@ -54,41 +54,60 @@ const AuctionList: React.FC = () => {
   }, []);
 
   if (loading) {
-    return <div className="text-center py-8">Loading auctions...</div>;
+    return (
+      <div className="text-center py-8 text-[#00fff7] font-mono">
+        Loading auctions...
+      </div>
+    );
   }
 
   if (error) {
-    return <div className="text-center text-red-600 py-8">{error}</div>;
+    return (
+      <div className="text-center text-[#ff00ff] py-8 font-mono cyberpunk-glow">
+        {error}
+      </div>
+    );
   }
 
   if (!auctions.length) {
-    return <div className="text-center py-8">No auctions available.</div>;
+    return (
+      <div className="text-center py-8 text-[#fffb00] font-mono">
+        No auctions available.
+      </div>
+    );
   }
 
   return (
-    <div className="max-w-3xl mx-auto p-4">
-      <h2 className="text-2xl font-semibold mb-4">Live Auctions</h2>
-      <ul className="space-y-4">
+    <div className="max-w-3xl mx-auto p-4 font-mono">
+      <h2 className="text-2xl font-extrabold mb-6 text-[#00fff7] cyberpunk-glow tracking-wide">
+        Live Auctions
+      </h2>
+      <ul className="space-y-6">
         {auctions.map((auction) => (
           <li
             key={auction.id}
-            className="border rounded p-4 hover:shadow transition"
+            className="border-2 border-[#00fff7] rounded-xl p-6 bg-[#181830] shadow-lg cyberpunk-panel hover:border-[#ff00ff] transition-all"
           >
             <div className="flex flex-col md:flex-row md:items-center md:justify-between">
               <div>
-                <h3 className="text-xl font-bold mb-1">{auction.title}</h3>
-                <p className="text-gray-600 mb-2">{auction.description}</p>
-                <div className="text-sm text-gray-500">
-                  Ends: {new Date(auction.endTime).toLocaleString()}
+                <h3 className="text-xl font-bold mb-2 text-[#ff00ff] cyberpunk-glow">
+                  {auction.title}
+                </h3>
+                <p className="text-[#b3b3ff] mb-2">{auction.description}</p>
+                <div className="text-sm text-[#fffb00]">
+                  Ends:{" "}
+                  <span className="font-semibold">
+                    {new Date(auction.endTime).toLocaleString()}
+                  </span>
                 </div>
               </div>
-              <div className="mt-3 md:mt-0 md:text-right">
-                <div className="text-lg font-semibold text-blue-700">
+              <div className="mt-4 md:mt-0 md:text-right">
+                <div className="text-lg font-bold text-[#00fff7] cyberpunk-glow">
                   Current Bid: ${auction.currentBid}
                 </div>
                 <Link
                   href={`/auction/${auction.id}`}
-                  className="inline-block mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+                  className="inline-block mt-3 px-6 py-2 bg-[#ff00ff] text-[#0a0a23] font-bold rounded-lg shadow-md hover:bg-[#00fff7] hover:text-[#181830] transition-all cyberpunk-btn"
                 >
                   View &amp; Bid
                 </Link>
@@ -97,6 +116,27 @@ const AuctionList: React.FC = () => {
           </li>
         ))}
       </ul>
+      <style jsx global>{`
+        .cyberpunk-glow {
+          text-shadow:
+            0 0 6px #00fff7,
+            0 0 12px #ff00ff,
+            0 0 20px #00fff7;
+        }
+        .cyberpunk-panel {
+          box-shadow:
+            0 0 16px #00fff7,
+            0 0 24px #ff00ff inset;
+        }
+        .cyberpunk-btn {
+          box-shadow:
+            0 0 10px #ff00ff,
+            0 0 20px #00fff7;
+        }
+        body {
+          font-family: 'Roboto Mono', 'VT323', monospace;
+        }
+      `}</style>
     </div>
   );
 };

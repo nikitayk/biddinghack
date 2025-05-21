@@ -1,5 +1,3 @@
-// components/UserRegistrationForm.tsx
-
 import React, { useState } from "react";
 
 interface RegistrationFormData {
@@ -16,7 +14,11 @@ const initialFormState: RegistrationFormData = {
   confirmPassword: "",
 };
 
-const UserRegistrationForm: React.FC = () => {
+interface UserRegistrationFormProps {
+  onSuccess?: () => void;
+}
+
+const UserRegistrationForm: React.FC<UserRegistrationFormProps> = ({ onSuccess }) => {
   const [form, setForm] = useState<RegistrationFormData>(initialFormState);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -71,6 +73,7 @@ const UserRegistrationForm: React.FC = () => {
       if (response.ok && data.success) {
         setSuccess("Registration successful! You can now log in.");
         setForm(initialFormState);
+        if (onSuccess) onSuccess();
       } else {
         setError(data.error || "Registration failed. Please try again.");
       }
@@ -82,10 +85,15 @@ const UserRegistrationForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-md mx-auto p-4 bg-white rounded shadow">
-      <h2 className="text-2xl font-semibold mb-4">Register</h2>
-      <div className="mb-3">
-        <label htmlFor="username" className="block mb-1 font-medium">
+    <form
+      onSubmit={handleSubmit}
+      className="max-w-md mx-auto p-6 bg-[#181830] border-2 border-[#00fff7] rounded-xl shadow-lg font-mono cyberpunk-panel"
+    >
+      <h2 className="text-2xl font-bold mb-6 text-[#ff00ff] text-center tracking-widest cyberpunk-glow">
+        REGISTER
+      </h2>
+      <div className="mb-5">
+        <label htmlFor="username" className="block mb-2 font-semibold text-[#00fff7]">
           Username
         </label>
         <input
@@ -97,11 +105,11 @@ const UserRegistrationForm: React.FC = () => {
           required
           minLength={3}
           maxLength={20}
-          className="w-full border px-3 py-2 rounded"
+          className="w-full px-4 py-2 bg-[#0a0a23] border-2 border-[#00fff7] rounded-lg text-[#fff] focus:outline-none focus:border-[#ff00ff] cyberpunk-input"
         />
       </div>
-      <div className="mb-3">
-        <label htmlFor="email" className="block mb-1 font-medium">
+      <div className="mb-5">
+        <label htmlFor="email" className="block mb-2 font-semibold text-[#00fff7]">
           Email
         </label>
         <input
@@ -111,11 +119,11 @@ const UserRegistrationForm: React.FC = () => {
           value={form.email}
           onChange={handleChange}
           required
-          className="w-full border px-3 py-2 rounded"
+          className="w-full px-4 py-2 bg-[#0a0a23] border-2 border-[#00fff7] rounded-lg text-[#fff] focus:outline-none focus:border-[#ff00ff] cyberpunk-input"
         />
       </div>
-      <div className="mb-3">
-        <label htmlFor="password" className="block mb-1 font-medium">
+      <div className="mb-5">
+        <label htmlFor="password" className="block mb-2 font-semibold text-[#00fff7]">
           Password
         </label>
         <input
@@ -127,11 +135,11 @@ const UserRegistrationForm: React.FC = () => {
           required
           minLength={6}
           maxLength={40}
-          className="w-full border px-3 py-2 rounded"
+          className="w-full px-4 py-2 bg-[#0a0a23] border-2 border-[#00fff7] rounded-lg text-[#fff] focus:outline-none focus:border-[#ff00ff] cyberpunk-input"
         />
       </div>
-      <div className="mb-3">
-        <label htmlFor="confirmPassword" className="block mb-1 font-medium">
+      <div className="mb-5">
+        <label htmlFor="confirmPassword" className="block mb-2 font-semibold text-[#00fff7]">
           Confirm Password
         </label>
         <input
@@ -143,18 +151,50 @@ const UserRegistrationForm: React.FC = () => {
           required
           minLength={6}
           maxLength={40}
-          className="w-full border px-3 py-2 rounded"
+          className="w-full px-4 py-2 bg-[#0a0a23] border-2 border-[#00fff7] rounded-lg text-[#fff] focus:outline-none focus:border-[#ff00ff] cyberpunk-input"
         />
       </div>
-      {error && <div className="mb-2 text-red-600">{error}</div>}
-      {success && <div className="mb-2 text-green-600">{success}</div>}
+      {error && (
+        <div className="mb-4 text-[#fffb00] text-center cyberpunk-glow">
+          {error}
+        </div>
+      )}
+      {success && (
+        <div className="mb-4 text-[#00ff99] text-center cyberpunk-glow">
+          {success}
+        </div>
+      )}
       <button
         type="submit"
         disabled={loading}
-        className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+        className="w-full py-2 mt-2 bg-[#ff00ff] text-[#0a0a23] font-bold rounded-lg shadow-md hover:bg-[#00fff7] hover:text-[#181830] transition-all cyberpunk-btn"
       >
         {loading ? "Registering..." : "Register"}
       </button>
+      <style jsx global>{`
+        .cyberpunk-glow {
+          text-shadow:
+            0 0 8px #ff00ff,
+            0 0 16px #00fff7,
+            0 0 32px #ff00ff;
+        }
+        .cyberpunk-panel {
+          box-shadow:
+            0 0 20px #00fff7,
+            0 0 40px #ff00ff inset;
+        }
+        .cyberpunk-btn {
+          box-shadow:
+            0 0 10px #ff00ff,
+            0 0 20px #00fff7;
+        }
+        .cyberpunk-input {
+          box-shadow: 0 0 6px #00fff7;
+        }
+        body {
+          font-family: 'Roboto Mono', 'VT323', monospace;
+        }
+      `}</style>
     </form>
   );
 };
