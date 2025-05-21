@@ -4,7 +4,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import LoginForm from "../../components/ui/LoginForm";
+import LoginForm from "../components/ui/LoginForm";
 
 const LoginPage: React.FC = () => {
   const router = useRouter();

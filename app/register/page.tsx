@@ -1,10 +1,12 @@
-// app/register/page.tsx
+
+/*app/register/page.tsx*/
 
 "use client";
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import UserRegistrationForm from "../../components/UserRegistrationForm";
+import UserRegistrationForm from "../components/ui/UserRegistrationForm";
+
 
 const RegisterPage: React.FC = () => {
   const router = useRouter();
